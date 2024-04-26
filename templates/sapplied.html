@@ -1,0 +1,38 @@
+{% extends 'studentnavbar.html' %}
+{% load static %}
+
+{% block content %}
+<html>
+<head>
+    <title>Application List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Application List</h1>
+        <div class="row">
+            {% for application in applications %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ application.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ application.job_title }}</h6>
+                        <p class="card-text">{{ application.email }}</p>
+                        <form action="{% url 'delete_application' application.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Withdraw</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Student Registration Form</title>
+  <!-- Internal CSS -->
+  <style>
+    /* Import Google font - Poppins */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    #check {
+      color: white; /* Set the color to white */}
+    body{
+      min-height: 100vh;
+      width: 100%;
+      background: url({% static 'images/bg.jpg' %}) no-repeat center center fixed;
+      background-size: cover;
+    }
+    .container{
+    position: absolute;
+    top: 50%;
+    right: 5%; /* Adjusted to move the container to the right side */
+    transform: translateY(-50%);
+    max-width: 430px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  }
+    .container .registration{
+      display: block;
+    }
+    .container .login{
+      display: none;
+    }
+    .form{
+      padding: 2rem;
+    }
+    .form header{
+      font-size: 2rem;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+     .form input{
+       height: 50px;
+       width: 100%;
+       padding: 0 15px;
+       font-size: 17px;
+       margin-bottom: 1.3rem;
+       border: 1px solid #ddd;
+       border-radius: 15px; /* Adjusted border-radius to make the input boxes rounder */
+       outline: none;
+     }
+     .form input.error {
+       border-color: red;
+     }
+     .form input:focus{
+       box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+     }
+     .form .notification {
+       color: red;
+       margin-bottom: 1rem;
+     }
+    .form a{
+      font-size: 16px;
+      color: #009579;
+      text-decoration: none;
+    }
+    .form a:hover{
+      text-decoration: underline;
+    }
+    .form input.button{
+      color: #fff;
+      background: #009579;
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-top: 1.7rem;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+    .form input.button:hover{
+      background: #006653;
+    }
+    .signup{
+      font-size: 17px;
+      text-align: center;
+    }
+    .signup label{
+      color: #009579;
+      cursor: pointer;
+    }
+    .signup label:hover{
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="registration form">
+      <header>Student Signup</header>
+      <div class="notification" id="notification"></div>
+      <form id="registrationForm" method="post" action="{% url 'studentregister' %}" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <input type="text" name="username" id="username" placeholder="ID Number">
+        <input type="text" name="name" id="name" placeholder="Enter your name">
+        <input type="email" name="email" id="email" placeholder="Enter your email">
+        <input type="password" name="password" id="password" placeholder="Create a password">
+        <input type="password" name="password1" id="password1" placeholder="Confirm your password">
+        <input type="submit" class="button" value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <a href="{% url 'first' %}" id="check">Login</a>
+        </span>
+      </div>
+    </div>
+  </div>
+  <script>
+    function validateForm() {
+      var username = document.getElementById("username").value;
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      var password1 = document.getElementById("password1").value;
+      var isValid = true;
+      var notification = document.getElementById("notification");
+      notification.innerHTML = "";
+
+      // Validate username
+      if (!/^\d{10}$/.test(username)) {
+        document.getElementById("username").classList.add("error");
+        notification.innerHTML += "Username must be 10 digits.<br>";
+        isValid = false;
+      } else {
+        document.getElementById("username").classList.remove("error");
+      }
+
+      // Validate name
+      if (!/^[a-zA-Z]+$/.test(name)) {
+        document.getElementById("name").classList.add("error");
+        notification.innerHTML += "Name must contain only alphabets.<br>";
+        isValid = false;
+      } else {
+        document.getElementById("name").classList.remove("error");
+      }
+
+      // Validate email
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        document.getElementById("email").classList.add("error");
+        notification.innerHTML += "Email must be valid.<br>";
+        isValid = false;
+      } else {
+        document.getElementById("email").classList.remove("error");
+      }
+
+      // Validate password
+      if (password !== password1) {
+        document.getElementById("password").classList.add("error");
+        document.getElementById("password1").classList.add("error");
+        notification.innerHTML += "Passwords do not match.<br>";
+        isValid = false;
+      } else {
+        document.getElementById("password").classList.remove("error");
+        document.getElementById("password1").classList.remove("error");
+      }
+
+      return isValid;
+    }
+  </script>
+</body>
+</html>

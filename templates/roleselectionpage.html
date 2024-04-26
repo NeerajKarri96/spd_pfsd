@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <title>Select Role</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      background-color: #f8f9fa; /* Set a light background color */
+    }
+
+    .button-container {
+      border: 2px solid black;
+      padding: 20px;
+      text-align: center;
+      margin: 100px auto; /* Centers the container horizontally and adds space from top */
+      width: fit-content; /* Allows the container to adjust its width based on content */
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+      background-color: #ffffff; /* White background */
+    }
+
+    h3 {
+      color: #333; /* Dark text color */
+      margin-bottom: 20px; /* Add space below the heading */
+    }
+
+    .btn {
+      margin: 5px; /* Add space between buttons */
+      border-radius: 5px; /* Rounded corners for buttons */
+    }
+
+    .btn-success {
+      background-color: #28a745; /* Green background for success button */
+      border-color: #28a745; /* Matching border color */
+    }
+
+    .btn-danger {
+      background-color: #dc3545; /* Red background for danger button */
+      border-color: #dc3545; /* Matching border color */
+    }
+
+    .btn:hover {
+      opacity: 0.8; /* Reduce opacity on hover for visual feedback */
+    }
+  </style>
+</head>
+<body class="p-3 m-0 border-0 bd-example m-0 border-0">
+
+<div class="button-container">
+  <!-- New H3 tag -->
+  <h3>Select role</h3>
+
+  <!-- Example Code -->
+  <a href="{% url 'studentsignup' %}" class="btn btn-success">Student</a>
+  <a href="{% url 'companysignup' %}" class="btn btn-danger">Company</a>
+  <!-- End Example Code -->
+</div>
+
+</body>
+</html>
